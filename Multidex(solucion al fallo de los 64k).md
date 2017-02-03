@@ -1,7 +1,7 @@
 # Como solucionar el fallo de la limitación de los 64k de metodos.
 
 1. Para provocar el fallo basta con añadir la librería de google de play services, esta librería hay que añadirla en el
-Androidmanifest.xml 
+gradle
 
     `compile 'com.google.android.gms:play-services:10.0.1'`
 1. Para solucionar el fallo, tenemos que añadir al gradle la librería de multidex que es la encargada de 
