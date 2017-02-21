@@ -534,9 +534,587 @@ System.out.println("¿Cómo te llamas?" + "\n" + ">>> ");
 //pendiente de averiguar...
 ```
 
+## Arrays Multidimensionales
+Utilizan más de un índice para acceder a sus elementos, la estructura más usada es la de dos dimensiones, normalmente conocida como tabla.
+
+El formato de creación es el siguiente:
+
+1. Creación de la tabla con las dos dimensiones fijadas:
+```
+<tipo><identificador>[][] = new <tipo>[num_filas][num_columnas];
+```
+Quedaría así:
+```java
+int tabla [][] = new int[5][7];
+```
+
+2. Inserción de datos en la tabla:
+```java
+tabla[2][4] = 3;
+```
+
+Esto es un programa que genera automáticamente una apuesta:
+```java
+Random aleatorio = new Random();
+int apuestas = aleatorio.nextInt(10) + 1;
+ 
+ // Crear array de dos dimensiones
+ int[][] numeros = new int[apuestas][6];
+ // Recorrer array de dos dimensiones
+ // almacenando un valor en cada posición
+ 
+ System.out.println(“Apuestas: “ + numeros.length);
+ 
+ for (int i = 0; i < numeros.length; i++){
+    for (int j = 0; j < numeros[i].length; j++) {
+        numeros[i][j] = aleatorio.nextInt(49) + 1;
+        }
+    }
+ // Recorrer array de dos dimensiones
+ // accediendo a cada posición
+    for (int[] apuesta : numeros) {
+        for (int numero : apuesta) {
+            System.out.print(numero + “\t”);
+        }
+    System.out.println();
+    }
+```
+
+Los arrays bidimensionale también se pueden inicializar utilizando el formato de listas de literales:
+
+```java
+//Creamos el array:
+String grupo[][] = {
+    { "Pepe", "Madrid", "coordina" },
+    {"Ana", "Sevilla", "colabora" },
+    {"Luis", "Lugo", "escribe" }
+};
+//Lo recorremos con un bucle y lo vamos visualizando:
+for(String[] persona: grupo){
+    for (String dato: persona){
+        System.out.print(dato + "\t\t");
+    }
+    System.out.print("\n");
+}
+```
+## Enumeraciones
+Son listas de constantes con nombres que definen un tipo nuevo. Para crear una enumeración se utiliza la palabra reservada enum del siguiente modo:
+
+```java
+enum EstadoCivil {
+    SOLTERO, CASADO, VIUDO, SEPARADO, DIVORCIADO
+}
+```
+Aquí tenemos un ejemplos de uso de un enum:
+
+Asignado a una variable y comparando su valor:
+```java
+public static EstadoCivil ec = CASADO;
+
+public static void main(String[] args){
+    if (ec == EstadoCivil.CASADO){
+        System.out.println("Estás Casado");
+    }
+}
+```
+Y aquí tenemos otro ejemplo con un switch:
+```java
+EstadoCivil es = EstadoCivil.DIVORCIADO;
+
+switch(ec){
+    case SOLTERO:
+        System.out.println("Estás soltero");
+        break;
+    
+    case CASADO:
+        System.out.println("Estás casado");
+        break;
+
+    case VIUDO:
+        System.out.println("Estás viudo");
+        break;
+
+    case SEPARADO:
+        System.out.println("Estás separado");
+        break;
+
+    case DIVORCIADO:
+        System.out.println("Estás divorciado");
+        break;
+}
+
+En java la convención estilísta es poner las constantes en mayúsculas.
+
+Todas las enumeraciones cuentan con métodos predefinidos:
+- values(): devuelve un array que contiene la lista de constantes de la enumeración.
+- valuesOf(String cadena): devuelve la constante de enumeración que se corresponde con la cadena pasada por parámetro.
+- ordinal(): devuelve el número de la posición de la constante en la lista.
+
+Este es un ejemplo de uso de values() y ordinal():
+```java
+//metemos la enumeracion en un array:
+EstadoCivil [] valores = EstadoCivil.values();
+
+//Ahora la recorremos con un bucle for each y la vamos imprimiendo:
+for (EstadoCivil estado: valores) {
+    int posicion = estado.ordinal();
+    System.out.println("La constante número " + posicion + " es " + estado);
+}
+```
+
+##Envoltorios de tipos
+Cada variable o tipo tiene la equivalente clase envoltorio. Esto es debido a que en algunas situaciones no se van a poder utilizar variables de tipos primitivos sino objetos. Cuando utilizemos colecciones, se vera que son un conjunto de objetos.
+
+|Tipo primitivo|Clase envoltorio|Clase atomic|
+|--------------|----------------|------------|
+|boolean|Boolean|AtomicBoolean|
+|byte|Byte||
+|char|Character||
+|short|Short||
+|int|Integer|AtomicInteger|
+|long|Long|AtomicLong|
+|float|Float||
+|double|Double||
+
+## Construcción:
+
+```java
+float sueldo = 1_245.8F;
+Float oSueldo = new Float(sueldo);
+```
+
+```java
+String sueldo = "1245.8";
+Float oSueldo = new Float(sueldo);
+```
+
+## Método valueOf:
+
+```java
+Float peso = Float.valueOf("73,2");
+Byteunbyte = Float.valueOf("00101011", 2);
+```
+
+## Metodo de Conversión xxxValue:
+
+```java
+Integer oNif = new Long("05221791");
+long nif = oNif.longValue();
+```
+
+## Metodos de conversión parseXXX:
+Lo utilizamos para convertir cadena a entero.
+```java
+int numero = Integer.parseInt("89789");
+```
+
+## Conversión String con toString:
+Con este método convertimos a cadena.
+```java
+Double d = new Double(897_789_456E14);
+String strd = d.toString();
+System.out.println(strd);
+System.out.println(d);
+String cadena = "cadena de Java";
+String cadena1 = cadena + ": tiene de longitud " + Long.toString(cadena.length());
+```
+
+## Conversion a binario, octal o hexadecimal con toXXXString:
+```java
+String octal = Long.toOctalString(4567895689L);
+String binario = Integer.toBinaryString(44444);
+String hexadecimal = Integer.toHexString(65535);
+```
+
+## Rango de valores y tamaño de los tipos:
+```java
+System.out.println("byte ===> MAYOR" + Byte.MAX_VALUE + "MENOR: " + Byte.MIN_VALUE + "SIZE: " + Byte.SIZE + "BYTES: " + Byte.BYTES);
+```
+
+## Autoboxing y Unboxing
+En java se utilizan las sentencias break y continue para implementar saltos ocasionales en el flujo de control del programa. La sentencia break es utilizada en la estructura de switch, para interrumpir la ejecución de sentencias de cada una de las alternativas.
+
+### Autoboxing
+Consiste en la conversión automática de tipo primitivo a objeto de clase envoltorio. Se puede utilizar con todos los tipos base.
+```java
+Integer oint = 43;
+Float ofloat = 125.8F;
+Boolean oboolean = false;
+```
+
+### Unboxing
+Es el procedimiento opuesto al autoboxing y se utiliza cuando es necesario volver a utilizar el valor.
+
+```java
+Integer oint = 125;
+...
+int i = oint;
+```
+
+## Modificadores de acceso y ámbitos
+
+|Modificadores de acceso|Accesibilidad|
+|-----------------------|-------------|
+
+|..........................................|Clase|Variable|Método|
+|---|---|---|---|
+|private|Accesible sólo dentro del archivo o clase donde se define|Accesible dentro de la clase|Accesible dentro de la clase|
+|protected|No se aplica|Accesible dentro de la propia clase y de sus herederos|Accesible dentro de la propia clase y las que la hereden|
+|sin modificar|Accesible dentro de la propia clase las clases que esten en su mismo paquete|Accesible dentro de la propia clase las clases que esten en su mismo paquete|Accesible dentro de la propia clase las clases que esten en su mismo paquete|
+|public|Accesible dentro de su propia clase y de las que la importen|Accesible dentro de su propia clase y de las que la importen|Accesible dentro de su propia clase y de las que la importen|
+
+## Crear objetos: operador new
+Para poder crear objetos de una clase se utiliza el operador new.
+
+Estructura:
+```
+<nombre_clase><identificador> = new <nombre_clase>(<lista_parametros>);
+```
+Ejemplo de uso:
+
+```java
+Scanner escaner = new Scanner();
+```
+
+## Constructores y sobrecarga de Constructores
+Son funciones que se ejecutan cuando se crean los objetos. Cuando se crea un objeto con new, primero se reserva el espacio para almacenar los valores. Cada constructor representa una forma distinta de crear los objetos de una clase.
+
+- Constructor sin parametros:
+```java
+public class Clase02 {
+    private int numero;
+    private String nombre;
+
+    public Clase02(){
+        numero = 99;
+        nombre ="antonio";
+
+    }
+
+}
+```
+Constructor con dos parametros:
+```java
+public class Clase02 {
+    private int numero;
+    private String nombre;
+
+    public Clase02(int num, String cad){
+        numero = num;
+        nombre =cad;
+
+    }
+
+}
+```
+Constructor que recibe referencia objeto de Clase02:
+```java
+public class Clase02 {
+    private int numero;
+    private String nombre;
+
+    public Clase02(Clase02 o){
+        numero = o.numero;
+        nombre = o.nombre;
+
+    }
+
+}
+```
+Los constructores se crean con el mismo nombre que la clase.
+
+Ahora podemos crear objetos a partir del constructor según el que hayamos utilizado antes:
+
+Para objeto de constructor sin parametros:
+
+```java
+Clase02 objeto1 = new Clase02();
+        objeto1.leerDatos();
+```
+Para objeto de constructor con dos parametros:
+```java
+Clase02 objeto1 = new Clase02(18, "Pepe perez");
+        objeto1.leerDatos();
+```
+
+Para objeto de constructor que recibe referencia:
+```java
+Clase02 objeto3 = new Clase02(objeto2);
+objeto3.leerDatos();
+```
+
+## La referencia this
+La palabra reservada this es una referencia al propio objeto. Solo se puede usuar dentro de las funciones de instancia y constructores. Cuando se usa this, se puede poner el identificador de cualquier miembro de instancia de la clase.
+
+```java
+public void modificaDatos(int num, String cad){
+        this.numero = num;
+        this.nombre = cad;
+
+    }
+```
+
+Ejemplo de modificación de datos:
+
+Clase02:
+```java
+package com.company.ejercicionavidadadivina;
+
+
+import java.util.Scanner;
+
+public class Clase02 {
+    private int numero;
+    private String nombre;
+
+    public Clase02(int num, String cad){
+        numero = num;
+        nombre = cad;
+
+    }
+
+    public void modificaDatos(int num, String cad){
+        System.out.println("Introduce un nuevo numero: \n");
+        Scanner arreglar = new Scanner(System.in);
+        num = arreglar.nextInt();
+        this.numero = num;
+
+        System.out.println("Introduce un nuevo nombre: \n");
+        Scanner arreglar2 = new Scanner(System.in);
+        cad = arreglar2.nextLine();
+        this.nombre = cad;
+
+    }
 
 
 
+    public void leerDatos(){
+        System.out.println("Nombre: " + nombre + " Numero: " + numero);
+    }
+
+}
+```
+
+Main:
+```java
+package com.company.ejercicionavidadadivina;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Clase02 objeto1 = new Clase02(18, "José");
+        objeto1.leerDatos();
+        objeto1.modificaDatos(18, "Jose");
+        objeto1.leerDatos();
+
+    }
+}
+```
+
+o se puede hacer también así:
+
+Clase04:
+```java
+package com.company.ejercicionavidadadivina;
+
+import java.util.Scanner;
+
+public class Clase04 {
+    private static int numPersonas;
+
+    private int numero;
+    private String nombre;
+
+    public static int cuentaPersonas(){
+        return numPersonas;
+    }
+
+    public Clase04(){
+        numPersonas++;
+        numero = 99;
+        nombre = "antonio";
+    }
+
+    public void imprime(){
+        System.out.println(numPersonas + " " + numero +" " + nombre);
+    }
+
+    public void modifica(){
+        System.out.println("Escoge un nuevo número: ");
+        Scanner number = new Scanner(System.in);
+        this.numero = number.nextInt();
+
+        System.out.println("Escoge un nuevo nombre: ");
+        Scanner name = new Scanner(System.in);
+        this.nombre = name.nextLine();
+
+    }
+
+
+}
+```
+Main: 
+```java
+package com.company.ejercicionavidadadivina;
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Número de personas: " + Clase04.cuentaPersonas());
+        Clase04 clase = new Clase04();
+        clase.imprime();
+        clase.modifica();
+
+        System.out.println("Número de personas: " + Clase04.cuentaPersonas());
+        clase.imprime();
+    }
+}
+```
+
+## Variables y métodos de clase: miembros static
+Los miembros de clase, vienen precededidos del modificador static. Las variables static son espacios compartidos por todos los objetos de la clase. Las funciones static son código de la clase, no de los objetos, por tanto no pueden utilizar la referencia this.
+
+## Sobrecarga de métodos
+Al igual que se sobrecargan los constructores, cualquier otro método o función puede estar sobrecargado. 
+
+Este código presenta una función sobrecargada de 3 formas:
+
+```java
+package com.company.ejercicionavidadivina;
+
+public class Clase06 {
+    private static int numPersonas;
+
+    final public static int edad_max = 65;
+    private int numero;
+    private String nombre;
+
+    //Sobrecarga de tres formas:
+
+    //Método 1:
+    public void modificaDatos(String nombre, int numero){
+        this.numero = numero;
+        this.nombre = nombre;
+    }
+
+    //Método 2:
+    public void modificaDatos(String nombre){
+        this.nombre = nombre;
+    }
+
+    public void modificaDatos(String numero){
+        this.numero = edad_max;
+    }
+
+    //Método 3:
+    public void modificaDatos(){
+        this.nombre = "anonimo";
+        this.numero = edad_max;
+    }
+
+}
+```
+Y como se utiliza la función anterior:
+```java
+public class Main{
+    public static void main(String[] args){
+        //Método 1:
+        Clase06 objeto1 = new Clase06();
+        objeto1.modificaDatos("Luis Ruiz", 72);
+        
+        //Método 2:
+        Clase06 objeto2 = new Clase06();
+        objeto2.modificaDatos(Clase06.edad_max);
+
+        Clase06 objeto3 = new Clase06();
+        objeto3.modificaDatos(Clase06.nombre);
+
+    }
+}
+```
+## Métodos getter y setter
+Son métodos de acceso a los datos de los objetos y son siempre públicos.
+Cada método accede a un sólo dato (una sola variable de instancia) Para obtener su valor o cambiarlo.
+Las funciones _getter_ retornan el valor de una variable de clase y las funciones _setter_ cambian el valor de una variable de clase. Por estilo estas funciones utilizan identificadores que comienzan por set o get seguidos del nombre de la variable comenzando por mayúsculas.
+
+Este es un modo de definir las funciones getter y setter:
+
+Desde una clase nueva llamada Clase07: 
+
+```java
+public class Clase07 {
+    private int numero;
+    private String nombre;
+
+    public int getNumero(){
+        return numero;
+    }
+
+    public void setNumero(int numero){
+        this.numero = numero;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    //hemos creado un método sobrecargado para modificar los datos:
+    public void modificaDatos(String nombre, int numero){
+        this.nombre = nombre;
+        this.numero = numero;
+    }
+}
+```
+Para obtener los getter y setter más rápido, podemos utilizar la opción de intelliJ alt+insert que los realiza automáticamente una vez seleccionadas las variables o.
+Y este el modo de utilizarlas desde la clase Main en la función main:
+
+```java
+//vamos a crear el primer objeto en el que insertamos unos datos:
+Clase07 objeto1 = new Clase07();
+objeto1.modificaDatos("Luis Ruiz", 27);
+
+//y ahora los imprimimos utilizando getter:
+System.out.println("El nombre es " + objeto1.getNombre());
+System.out.println(" y tiene un número igual a " + objeto1.getNumero());
+
+//Ahora vamos a crear un nuevo objeto e insertaremos datos utilizando setter:
+Clase07 objeto2 = new Clase07();
+objeto2.setNumero(objeto1.getNumero()+1);
+objeto2.setNombre("Rodolfo");
+
+//y lo imprimimos para ver el resultado:
+System.out.println("El nombre es " + objeto2.getNombre());
+System.out.println(" y tiene un numero igual a " + objeto2.getNumero());
+
+```
+## toString
+Cuando se llama a "print" o "println", se hace en referencia a un objeto instaciando de una clase llamando al método toString, si dicha clase no lo tiene implementado se ejecuta el de la clase Object.
+Para que no se ejecute el código heredado de Object es necesario utilizar la función toString().
+```java
+//buscar referencias
+```
+
+## equals
+El operador == no se puede utilizar para comparar si dos objetos son iguales o no. Para ello hay que sobreescribir la función equals(Object o)
+de Object.
+
+En este ejemplo vamos a utilizar la Clase07 usada antes:
+
+```java
+{
+Clase07 objeto1 = new Clase07();
+objeto1.modificaDatos("Luis Ruiz", 27);
+
+Clase07 objeto2 = objeto1;
+
+System.out.println(objeto1.equals(objeto2));
+}
+```
+En este ejemplo estamos comparando dos objetos.
 
 
 
